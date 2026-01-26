@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'stock.apps.StockConfig',
+    'rest_framework',
+    'inventory'
 ]
 
 MIDDLEWARE = [
@@ -77,6 +78,13 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+        #'USER': 'postgres',
+        #'PASSWORD': 'postgres',
+        #'HOST': '127.0.0.1', # IP del servidor
+        #'PORT': '5432', # Puerto por defecto de postgresql
+        #'OPTIONS':{
+        #    'client_encoding': 'UTF8',
+        #}
     }
 }
 
