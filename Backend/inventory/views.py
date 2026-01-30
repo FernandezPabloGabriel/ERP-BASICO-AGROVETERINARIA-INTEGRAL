@@ -4,9 +4,14 @@ from rest_framework import status
 from .models import Producto
 from .serializers import ProductoSerializer
 
+def obtener_tenant():
+    return Producto.objects.filter(tenant_id=1)
+
 @api_view(['GET'])
 def obtener_productos(request):
-    productos = Producto.objects.all()
+    productos = obtener_tenant()
+    # productos = Producto.objects.filter(tenant_id=1)
+    # productos = Producto.objects.all()
     serializador = ProductoSerializer(productos, many=True)
     dicc_productos = serializador.data
     return Response(dicc_productos, status=status.HTTP_200_OK)
@@ -14,7 +19,8 @@ def obtener_productos(request):
 @api_view(['GET', 'PUT', 'DELETE'])
 def gestionar_producto(request, pk):
     try:
-        producto = Producto.objects.get(pk=pk)
+        producto = obtener_tenant().get(pk=pk)
+        # producto = Producto.objects.get(pk=pk)
     except:
         return Response(status=status.HTTP_404_NOT_FOUND)
     
@@ -24,7 +30,7 @@ def gestionar_producto(request, pk):
     elif request.method == 'PUT':
         serializador = ProductoSerializer(producto, data=request.data, partial=True)
         if serializador.is_valid():
-            serializador.save()
+            serializador.save(tenant_id=1)
             return Response(serializador.data, status=status.HTTP_202_ACCEPTED)
     elif request.method == 'DELETE':
         producto.delete()
@@ -35,6 +41,6 @@ def gestionar_producto(request, pk):
 def crear_producto(request):
     serializador = ProductoSerializer(data=request.data)
     if serializador.is_valid():
-        serializador.save()
+        serializador.save(tenant_id=1)
         return Response(serializador.data, status=status.HTTP_201_CREATED)
     return Response(serializador.errors, status=status.HTTP_400_BAD_REQUEST)

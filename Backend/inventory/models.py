@@ -1,6 +1,13 @@
 from django.db import models
+from tenant.models import Tenant
 
 class Producto(models.Model):
+    tenant = models.ForeignKey(
+        Tenant,
+        on_delete=models.CASCADE,
+        default=1,
+    )
+
     UNIDAD_CHOICES=[
         ('unidad', 'Unidad'),
         ('kg', 'Kilogramo'),

@@ -15,5 +15,6 @@ class ProductoSerializer(serializers.ModelSerializer):
             "stock_minimo",
             "unidad_medida",
             "es_granel",
-            "padre"
+            "tenant",
+            "padre",
         ]
