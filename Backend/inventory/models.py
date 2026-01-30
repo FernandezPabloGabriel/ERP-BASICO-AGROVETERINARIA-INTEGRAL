@@ -20,6 +20,13 @@ class Producto(models.Model):
         default='unidad'
     )
     es_granel = models.BooleanField()
+    padre = models.ForeignKey(
+        'self',
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True, # Es para formularios, permite que estén vacíos
+        related_name='hijos'
+    )
     
 
     def __str__(self):
