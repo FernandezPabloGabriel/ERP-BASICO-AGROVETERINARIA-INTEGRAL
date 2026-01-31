@@ -1,4 +1,4 @@
-import { SearchInput, AddButton } from '../ui';
+import { SearchInput, AddButton, BulkEntryButton } from '../ui';
 
 interface HeaderProps {
     title: string;
@@ -6,9 +6,10 @@ interface HeaderProps {
     searchValue: string;
     onSearchChange: (value: string) => void;
     onAddClick: () => void;
+    onBulkEntryClick?: () => void;
 }
 
-export function Header({ title, subtitle, searchValue, onSearchChange, onAddClick }: HeaderProps) {
+export function Header({ title, subtitle, searchValue, onSearchChange, onAddClick, onBulkEntryClick }: HeaderProps) {
     return (
         <header className="bg-white shadow-sm p-4 sm:p-6 flex flex-col sm:flex-row justify-between items-center gap-4 z-10">
             <div>
@@ -22,6 +23,7 @@ export function Header({ title, subtitle, searchValue, onSearchChange, onAddClic
                     onChange={onSearchChange}
                     placeholder="Buscar artículo..."
                 />
+                {onBulkEntryClick && <BulkEntryButton onClick={onBulkEntryClick} />}
                 <AddButton onClick={onAddClick} />
             </div>
         </header>

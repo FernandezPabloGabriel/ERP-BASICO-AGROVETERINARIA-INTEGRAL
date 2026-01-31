@@ -15,3 +15,38 @@ export interface Product {
 }
 
 export type ProductFormData = Partial<Product>;
+
+// --- Tipos para Configuración de Columnas de Tabla ---
+
+export type ColumnId = 'name' | 'category' | 'stock' | 'price' | 'status' | 'actions';
+
+export interface ColumnConfig {
+    id: ColumnId;
+    label: string;
+    visible: boolean;
+    width: number; // Ancho en píxeles
+    minWidth: number;
+    order: number;
+    align: 'left' | 'center' | 'right';
+}
+
+export interface ContextMenuPosition {
+    x: number;
+    y: number;
+}
+
+// --- Tipos para Carga Masiva (Bulk Entry) ---
+
+export interface BulkEntryItem {
+    productId: number;
+    productName: string;
+    quantity: number;
+    unitPrice: number;
+    unit: ProductUnit;
+}
+
+export interface BulkEntryState {
+    items: BulkEntryItem[];
+    searchTerm: string;
+    isOpen: boolean;
+}

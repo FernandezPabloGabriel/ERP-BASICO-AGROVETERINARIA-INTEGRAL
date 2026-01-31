@@ -1,5 +1,5 @@
-import { useState, useMemo } from 'react';
-import type { Product, ProductFormData } from '../types';
+import { useState, useMemo, useCallback } from 'react';
+import type { Product, ProductFormData, BulkEntryItem } from '../types';
 import { INITIAL_PRODUCTS } from '../data/initialProducts';
 
 const DEFAULT_FORM_DATA: ProductFormData = {
@@ -68,6 +68,23 @@ export function useProducts() {
 
     const closeModal = () => setIsModalOpen(false);
 
+    // Manejar carga masiva de stock
+    const handleBulkEntry = useCallback((items: BulkEntryItem[]) => {
+        setProducts(prev => {
+            return prev.map(product => {
+                const bulkItem = items.find(item => item.productId === product.id);
+                if (bulkItem) {
+                    return {
+                        ...product,
+                        stock: product.stock + bulkItem.quantity,
+                        price: bulkItem.unitPrice // Actualizar precio si cambió
+                    };
+                }
+                return product;
+            });
+        });
+    }, []);
+
     return {
         products,
         filteredProducts,
@@ -81,6 +98,7 @@ export function useProducts() {
         handleEditClick,
         handleDeleteClick,
         handleSave,
-        closeModal
+        closeModal,
+        handleBulkEntry
     };
 }

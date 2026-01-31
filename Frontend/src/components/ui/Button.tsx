@@ -1,5 +1,5 @@
 import React from 'react';
-import { Plus } from 'lucide-react';
+import { Plus, PackagePlus } from 'lucide-react';
 
 interface ButtonProps {
     children: React.ReactNode;
@@ -47,6 +47,20 @@ interface AddButtonProps {
 export function AddButton({ onClick, label = 'Nuevo Producto' }: AddButtonProps) {
     return (
         <Button onClick={onClick} icon={<Plus size={20} />}>
+            <span className="hidden sm:inline">{label}</span>
+        </Button>
+    );
+}
+
+// Botón específico para "Carga Masiva"
+interface BulkEntryButtonProps {
+    onClick: () => void;
+    label?: string;
+}
+
+export function BulkEntryButton({ onClick, label = 'Cargar Nuevo Stock' }: BulkEntryButtonProps) {
+    return (
+        <Button onClick={onClick} variant="secondary" icon={<PackagePlus size={20} />} className="border border-slate-300">
             <span className="hidden sm:inline">{label}</span>
         </Button>
     );

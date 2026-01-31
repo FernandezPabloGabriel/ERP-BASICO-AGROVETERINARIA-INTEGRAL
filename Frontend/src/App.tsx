@@ -1,12 +1,13 @@
 import './App.css';
-import { useProducts, useSidebar } from './hooks';
+import { useProducts, useSidebar, useBulkEntry } from './hooks';
 import { Sidebar, Header } from './components/layout';
-import { ProductTable, ProductForm } from './components/products';
+import { ProductTable, ProductForm, BulkEntryForm } from './components/products';
 
 export default function App() {
   // Hooks personalizados
   const sidebar = useSidebar(true);
   const {
+    products,
     filteredProducts,
     searchTerm,
     setSearchTerm,
@@ -18,8 +19,12 @@ export default function App() {
     handleEditClick,
     handleDeleteClick,
     handleSave,
-    closeModal
+    closeModal,
+    handleBulkEntry
   } = useProducts();
+
+  // Hook para carga masiva
+  const bulkEntry = useBulkEntry(products, handleBulkEntry);
 
   return (
     <div className="flex h-screen bg-slate-100 font-sans text-slate-800 overflow-hidden">
@@ -33,10 +38,10 @@ export default function App() {
         {/* Header */}
         <Header
           title="Gestión de Stock"
-          subtitle="Controlá tus productos, precios y reposiciones."
           searchValue={searchTerm}
           onSearchChange={setSearchTerm}
           onAddClick={handleAddClick}
+          onBulkEntryClick={bulkEntry.openBulkEntry}
         />
 
         {/* Tabla de Productos */}
@@ -55,6 +60,23 @@ export default function App() {
         formData={formData}
         setFormData={setFormData}
         onSave={handleSave}
+      />
+
+      {/* Modal Carga Masiva */}
+      <BulkEntryForm
+        isOpen={bulkEntry.isOpen}
+        onClose={bulkEntry.closeBulkEntry}
+        items={bulkEntry.items}
+        searchTerm={bulkEntry.searchTerm}
+        filteredProducts={bulkEntry.filteredProducts}
+        total={bulkEntry.total}
+        totalItems={bulkEntry.totalItems}
+        onSearchChange={bulkEntry.setSearchTerm}
+        onAddProduct={bulkEntry.addProduct}
+        onRemoveProduct={bulkEntry.removeProduct}
+        onUpdateQuantity={bulkEntry.updateQuantity}
+        onUpdatePrice={bulkEntry.updatePrice}
+        onConfirm={bulkEntry.confirmEntry}
       />
 
     </div>

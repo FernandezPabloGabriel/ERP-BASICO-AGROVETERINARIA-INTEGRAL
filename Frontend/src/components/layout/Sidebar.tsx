@@ -13,7 +13,7 @@ export function Sidebar({ isOpen, onToggle }: SidebarProps) {
             <div className="p-4 flex items-center justify-between border-b border-slate-700">
                 {isOpen && (
                     <h1 className="font-bold text-xl tracking-tight text-emerald-400">
-                        Vete<span className="text-white">Chu</span>
+                        Agroveterinaria<span className="text-white"> Integral</span>
                     </h1>
                 )}
                 <button onClick={onToggle} className="p-2 hover:bg-slate-800 rounded-lg">
