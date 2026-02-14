@@ -3,6 +3,7 @@ import type { Product, ProductFormData, BulkEntryItem } from '../types';
 import { INITIAL_PRODUCTS } from '../data/initialProducts';
 
 const DEFAULT_FORM_DATA: ProductFormData = {
+    barcode: '',
     name: '',
     category: 'Alimento',
     stock: 0,
@@ -23,7 +24,8 @@ export function useProducts() {
     const filteredProducts = useMemo(() => {
         return products.filter(p =>
             p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            p.category.toLowerCase().includes(searchTerm.toLowerCase())
+            p.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            p.barcode.includes(searchTerm)
         );
     }, [products, searchTerm]);
 

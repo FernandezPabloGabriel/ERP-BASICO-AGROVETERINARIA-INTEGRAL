@@ -60,7 +60,7 @@ export function BulkEntryForm({
                             type="text"
                             value={searchTerm}
                             onChange={(e) => onSearchChange(e.target.value)}
-                            placeholder="Buscar producto por nombre o código..."
+                            placeholder="Buscar producto por nombre o código de barras..."
                             className="w-full pl-10 pr-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
                         />
                     </div>
@@ -78,7 +78,7 @@ export function BulkEntryForm({
                                     <div className="flex-1 min-w-0">
                                         <div className="font-medium text-slate-800 truncate">{product.name}</div>
                                         <div className="text-xs text-slate-500">
-                                            ID: {product.id} • Stock: {product.stock} {product.unit} • ${product.price.toLocaleString('es-AR')}
+                                            <span className="font-mono">{product.barcode}</span> • Stock: {product.stock} {product.unit} • ${product.price.toLocaleString('es-AR')}
                                         </div>
                                     </div>
                                     <span className="text-emerald-600 text-sm font-medium">+ Agregar</span>

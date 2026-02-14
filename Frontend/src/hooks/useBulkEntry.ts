@@ -13,7 +13,8 @@ export function useBulkEntry(products: Product[], onConfirm: (items: BulkEntryIt
         return products
             .filter(p =>
                 p.name.toLowerCase().includes(term) ||
-                p.id.toString().includes(term)
+                p.id.toString().includes(term) ||
+                p.barcode.includes(searchTerm) // Búsqueda por código de barras
             )
             .slice(0, 8); // Limitar a 8 resultados
     }, [products, searchTerm]);

@@ -5,6 +5,7 @@ export type ProductUnit = 'UN' | 'KG' | 'L';
 
 export interface Product {
     id: number;
+    barcode: string; // Código de barras
     name: string;
     category: ProductCategory;
     stock: number;

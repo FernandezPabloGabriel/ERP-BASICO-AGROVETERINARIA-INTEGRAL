@@ -24,6 +24,20 @@ export function ProductForm({
     return (
         <Modal isOpen={isOpen} onClose={onClose} title={title}>
             <form onSubmit={onSave} className="p-6 space-y-4">
+                {/* Código de Barras */}
+                <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-1">
+                        Código de Barras
+                    </label>
+                    <input
+                        type="text"
+                        className="w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none font-mono"
+                        value={formData.barcode}
+                        onChange={e => setFormData({ ...formData, barcode: e.target.value })}
+                        placeholder="Ej: 7790001000011"
+                    />
+                </div>
+
                 {/* Nombre */}
                 <div>
                     <label className="block text-sm font-medium text-slate-700 mb-1">
